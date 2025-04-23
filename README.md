@@ -1,7 +1,7 @@
 ## Installation
-Written for virtual env. Feel free to use different package manager.
+Written for virtual env. Feel free to use different package manager.  
 `python -m venv .venv`  
-`source .venv/bin/activate`  
+`source .venv/bin/activate`   
 `pip install -r requirements.txt`
 
 
