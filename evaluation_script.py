@@ -120,7 +120,7 @@ if __name__ == "__main__":
     path_test = sys.argv[2]
 
     modelClass, modelReg = load_model(model_path)
-    data = pd.read_csv(path_test, delimiter='\t')[:10]
+    data = pd.read_csv(path_test, delimiter='\t')
 
     classPredictions = evaluateClass(modelClass, data)
     regPredictions = evaluateReg(modelReg, data)
