@@ -120,7 +120,7 @@ if __name__ == "__main__":
 
     modelClass, modelReg = load_model(model_path)
     data = pd.read_csv(path_test, delimiter='\t')
-    data = data[:100]
+    
     classPredictions = evaluateClass(modelClass, data)
     regPredictions = evaluateReg(modelReg, data)
     print("id\tpredicted_is_active\tpredicted_rna_dna_ratio")
