@@ -88,12 +88,11 @@ def evaluateReg(model: nn.Module, data: pd.DataFrame):
     model.eval()
     predReg = []
     for batch in dataloader:
-        print(batch["input_ids"].shape)
         input_ids = batch["input_ids"].to(device)
         attention_mask = batch["attention_mask"].to(device)
 
         outputs = model(input_ids=input_ids, attention_mask=attention_mask)
-        print(outputs.tolist())
+        
         predReg = predReg + outputs.tolist()
         
     return predReg
@@ -109,7 +108,7 @@ if __name__ == "__main__":
 
     modelClass, modelReg = load_model(model_path)
     data = pd.read_csv(path_test, delimiter='\t')
-
+    data = data[:100]
     classPredictions = evaluateClass(modelClass, data)
     regPredictions = evaluateReg(modelReg, data)
     print("id\tpredicted_is_active\tpredicted_rna_dna_ratio")
