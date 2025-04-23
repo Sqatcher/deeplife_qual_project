@@ -1,3 +1,15 @@
+"""
+Evaluation script for prediction and classification task.
+We developed separate models for regression and classification, so please note that first argument, 
+should point to <.tar> file.
+We print results in desired format plus save it to `predictions.tsv`
+
+
+DEFAULT USAGE:
+`python evaluation_script.py model_merging/eval_models.tar <path_to_test>.tsv`
+"""
+
+
 import sys
 
 import pandas as pd
@@ -108,10 +120,17 @@ if __name__ == "__main__":
     path_test = sys.argv[2]
 
     modelClass, modelReg = load_model(model_path)
-    data = pd.read_csv(path_test, delimiter='\t')
+    data = pd.read_csv(path_test, delimiter='\t')[:10]
 
     classPredictions = evaluateClass(modelClass, data)
     regPredictions = evaluateReg(modelReg, data)
     print("id\tpredicted_is_active\tpredicted_rna_dna_ratio")
     for i, cp, rp in zip(range(len(data)), classPredictions, regPredictions):
         print(f"{i}\t{cp}\t{rp[0]}")
+    
+    output_file = "predictions.tsv"
+    with open(output_file, "w") as f:
+        f.write("id\tpredicted_is_active\tpredicted_rna_dna_ratio\n")
+        for i, cp, rp in zip(range(len(data)), classPredictions, regPredictions):
+            f.write(f"{i}\t{cp}\t{rp[0]}\n")
+    print(f"Predictions saved to {output_file}")
